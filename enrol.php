@@ -102,11 +102,13 @@ if ( isset($dataa) ) {
 // See your keys here: https://dashboard.stripe.com/account/apikeys.
 \Stripe\Stripe::setApiKey($this->get_config('secretkey'));
 
+$site = get_site();
+
 $intent = \Stripe\PaymentIntent::create([
     'amount' => str_replace(".", "", $cost),
     'currency' => strtolower($instance->currency),
     'setup_future_usage' => 'off_session',
-    'description' => 'Enrolment charge for '.$coursefullname,
+    'description' => $site->fullname . ' - Enrolment charge for ' . $coursefullname,
 ]);
 
 echo "<p><b> Final Cost : $instance->currency $cost </b></p>";
